@@ -1,6 +1,52 @@
-@AppointmentBooking.API_HostAddress = http://localhost:5277
-
-GET {{AppointmentBooking.API_HostAddress}}/weatherforecast/
+### Get all appointments for today
+GET http://localhost:5000/api/appointments/today
 Accept: application/json
+
+###
+
+### Book an appointment
+POST http://localhost:5000/api/appointments/book
+Content-Type: application/json
+
+{
+  "date": "2023-12-15T14:00:00",
+  "customerName": "Jane Doe"
+}
+
+###
+
+### Update an appointment
+PUT http://localhost:5000/api/appointments/1
+Content-Type: application/json
+
+{
+  "date": "2023-12-15T15:00:00",
+  "customerName": "Jane Doe Updated"
+}
+
+###
+
+### Delete an appointment
+DELETE http://localhost:5000/api/appointments/1
+Accept: application/json
+
+###
+
+### Get system configuration
+GET http://localhost:5000/api/configuration
+Accept: application/json
+
+###
+
+### Update system configuration
+POST http://localhost:5000/api/configuration/update
+Content-Type: application/json
+
+{
+  "maxAppointmentsPerDay": 20,
+  "holidays": [
+    "2023-12-25"
+  ]
+}
 
 ###
