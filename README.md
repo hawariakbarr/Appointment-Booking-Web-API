@@ -37,8 +37,9 @@ POST /api/configuration/add-agency-configuration: Add new configuration settings
 ```
 
 ### Instructions:
-cd appointmentbookingsystem
+```cd appointmentbookingsystem
 dotnet restore
 dotnet ef database update --project AppointmentBooking.Data
 dotnet run --project AppointmentBooking.API
+```
 
