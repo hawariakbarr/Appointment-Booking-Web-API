@@ -9,8 +9,27 @@ namespace AppointmentBooking.Business.Interfaces
 {
     public interface IAgencyConfigurationService
     {
+        /// <summary>
+        /// get latest configuration data order by date descending
+        /// </summary>
+        /// <returns></returns>
         Task<AgencyConfiguration> GetCurrentConfiguration();
+
+        /// <summary>
+        /// add new configuration including maxDays allower perday and
+        /// array of public holidays
+        /// </summary>
+        /// <param name="agencyConfiguration"></param>
+        /// <returns></returns>
         Task AddConfiguration(AgencyConfiguration agencyConfiguration);
-        Task UpdateConfiguration(int configurationI, AgencyConfiguration configuration);
+
+        /// <summary>
+        /// updatin existing configuration including maxDays allower perday and
+        /// array of public holidays
+        /// </summary>
+        /// <param name="configurationI"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        Task UpdateConfiguration(int configurationId, AgencyConfiguration configuration);
     }
 }
