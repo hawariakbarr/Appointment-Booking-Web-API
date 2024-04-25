@@ -32,7 +32,7 @@ namespace AppointmentBooking.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("today-appointment")]
+        [HttpGet("appointment-by-date")]
         public async Task<IActionResult> GetTodayAppointment([FromQuery] DateTime? date)
         {
             // Check if date is null, and if so, set it to today's date
