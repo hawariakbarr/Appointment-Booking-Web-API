@@ -10,6 +10,6 @@ namespace AppointmentBooking.Common.Models
     {
         public int Id { get; set; }
         public int MaxAppointmentPerDay { get; set; }
-        public List<DateTime> Holidays { get; set; } = [];
+        public List<DateTime> PublicHolidays { get; set; } = [];
     }
 }

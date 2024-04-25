@@ -22,9 +22,6 @@ namespace AppointmentBooking.Data
 
             modelBuilder.Entity<AgencyConfiguration>()
                 .HasKey(a => a.Id);
-
-            // default value if data is null
-            modelBuilder.Entity<AgencyConfiguration>().HasData(new AgencyConfiguration { Id = 1, MaxAppointmentPerDay = 20, Holidays = new List<DateTime>() });
         }
     }
 }
