@@ -1,5 +1,6 @@
 ﻿using AppointmentBooking.Business.Interfaces;
 using AppointmentBooking.Common.Models;
+using AppointmentBooking.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace AppointmentBooking.Business.Services
 {
-    public class AgenyConfigurationService : IAgencyConfigurationService
+    public class AgencyConfigurationService : IAgencyConfigurationService
     {
-        private readonly IAgencyConfigurationService _configurationRepository;
+        private readonly IAgencyConfigurationRepository _configurationRepository;
 
-        public AgenyConfigurationService(IAgencyConfigurationService configurationRepository)
+        public AgencyConfigurationService(IAgencyConfigurationRepository configurationRepository)
         {
             _configurationRepository = configurationRepository;
         }

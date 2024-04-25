@@ -1,9 +1,59 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using AppointmentBooking.Data;
+using AppointmentBooking.Business.Services;
+using AppointmentBooking.Business.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using AppointmentBooking.Data.Interfaces;
+using AppointmentBooking.Data.Repositories;
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers();
+// Configure routing to use lowercase URLs
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+});
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+
+// Configure Swagger directly from appsettings.json
+var swaggerTitle = builder.Configuration["SwaggerSettings:Title"];
+var swaggerVersion = builder.Configuration["SwaggerSettings:Version"];
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc(swaggerVersion, new OpenApiInfo
+    {
+        Title = swaggerTitle,
+        Version = swaggerVersion
+    });
+});
+
+
+// Configure Autofac as the IoC container
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterType<AppDbContext>().AsSelf().InstancePerLifetimeScope();
+
+    containerBuilder.RegisterType<AppointmentService>().As<IAppointmentService>().InstancePerLifetimeScope();
+    containerBuilder.RegisterType<AgencyConfigurationService>().As<IAgencyConfigurationService>().InstancePerLifetimeScope();
+
+    containerBuilder.RegisterType<AppointmentRepository>().As<IAppointmentRepository>().InstancePerLifetimeScope();
+    containerBuilder.RegisterType<AgencyConfigurationRepository>().As<IAgencyConfigurationRepository>().InstancePerLifetimeScope();
+
+    // Register other services and repositories as needed
+});
+
+// Configure DbContext
+builder.Services.AddDbContext<AppDbContext>(options =>
+    // Assuming usage of SQL Server; modify connection string as necessary
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 
 var app = builder.Build();
 
@@ -11,34 +61,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint($"/swagger/{swaggerVersion}/swagger.json", swaggerTitle);
+    });
 }
 
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppointmentBooking.Common.Models
+namespace AppointmentBooking.Common.DTOs
 {
-    public class AgencyConfiguration
+    public class AgencyConfigurationRequest
     {
-        public int Id { get; set; }
         public int MaxAppointmentPerDay { get; set; }
         public List<DateTime> PublicHolidays { get; set; } = [];
-        public DateTime CreatedDate { get; set; }
     }
 }

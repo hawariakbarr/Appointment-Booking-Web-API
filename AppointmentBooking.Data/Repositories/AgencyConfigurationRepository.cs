@@ -21,8 +21,16 @@ namespace AppointmentBooking.Data.Repositories
 
         public async Task<AgencyConfiguration> GetCurrentConfiguration()
         {
-            return await _context.Configuration.FirstOrDefaultAsync() ??
-                new AgencyConfiguration { MaxAppointmentPerDay = 20, PublicHolidays = [DateTime.Now.AddDays(5)] };
+            var latestConfiguration = await _context.Configuration
+                                                    .OrderByDescending(c => c.CreatedDate)
+                                                    .FirstOrDefaultAsync();
+
+            return latestConfiguration ?? new AgencyConfiguration
+            {
+                MaxAppointmentPerDay = 20,
+                PublicHolidays = new List<DateTime> { DateTime.Now.AddDays(5), DateTime.Now.AddDays(7) },
+                CreatedDate = DateTime.UtcNow
+            };
         }
 
         public async Task UpdateConfiguration(int configurationId, AgencyConfiguration configuration)
