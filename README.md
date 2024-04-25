@@ -29,11 +29,11 @@ The Appointment Booking System is a .NET Web API designed to help agencies manag
 
 ### API Endpoints
 ```
-POST /api/appointments/book: Book a new appointment.
-GET /api/appointments/today: Retrieve appointments by date.
-GET /api/agencyconfiguration: Get current configuration settings.
-PUT /api/configuration/update-agency-configuration: Update configuration settings.
-POST /api/configuration/add-agency-configuration: Add new configuration settings.
+POST    /api/appointments/book: Book a new appointment.
+GET     /api/appointments/today: Retrieve appointments by date.
+GET     /api/agencyconfiguration: Get current configuration settings.
+PUT     /api/agencyconfiguration/update-agency-configuration: Update configuration settings.
+POST    /api/agencyconfiguration/add-agency-configuration: Add new configuration settings.
 ```
 
 ### Instructions:
