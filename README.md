@@ -25,21 +25,30 @@ The Appointment Booking System is a .NET Web API designed to help agencies manag
 ### Installation
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/yourgithubusername/appointmentbookingsystem.git
+   git clone https://github.com/yourgithubusername/Appointment-Booking-Web-API.git
+
+2. **Navigate to the project directory**
+   ```sh
+   cd Appointment Booking Web API
+
+3. **Restore the .NET packages**
+   ```sh
+   dotnet restore
+
+4. **Update the database**
+   ```sh
+   dotnet ef database update --project AppointmentBooking.Data
+
+5. **Run the application**
+   ```sh
+   dotnet run --project AppointmentBooking.API
 
 ### API Endpoints
 ```
-POST    /api/appointments/book: Book a new appointment.
-GET     /api/appointments/today: Retrieve appointments by date.
+POST    /api/appointment/book: Book a new appointment.
+GET     /api/appointment/appointment-by-date: Retrieve appointments by date.
 GET     /api/agencyconfiguration: Get current configuration settings.
 PUT     /api/agencyconfiguration/update-agency-configuration: Update configuration settings.
 POST    /api/agencyconfiguration/add-agency-configuration: Add new configuration settings.
-```
-
-### Instructions:
-```cd appointmentbookingsystem
-dotnet restore
-dotnet ef database update --project AppointmentBooking.Data
-dotnet run --project AppointmentBooking.API
 ```
 
