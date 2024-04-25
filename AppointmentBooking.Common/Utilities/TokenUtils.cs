@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppointmentBooking.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -9,22 +10,22 @@ namespace AppointmentBooking.Common.Utilities
 {
     public class TokenUtil
     {
-        public static string GenerateToken(string stringReferrence)
+        public static string GenerateToken(string baseInfo)
         {
-            return GenerateHash(stringReferrence);
+            return $"token_{Guid.NewGuid()}_{baseInfo}";
         }
 
-        public static string GenerateHash(string text)
-        {
-            using (var hash = SHA256.Create())
-            {
-                return Convert.ToBase64String(hash.ComputeHash(Encoding.UTF8.GetBytes(text)));
-            }
-        }
+        //public static string GenerateHash(string text)
+        //{
+        //    using (var hash = SHA256.Create())
+        //    {
+        //        return Convert.ToBase64String(hash.ComputeHash(Encoding.UTF8.GetBytes(text)));
+        //    }
+        //}
 
-        public static bool CompareHash(string hash, string text)
-        {
-            return GenerateHash(text) == hash;
-        }
+        //public static bool CompareHash(string hash, string text)
+        //{
+        //    return GenerateHash(text) == hash;
+        //}
     }
 }

@@ -27,7 +27,7 @@ namespace AppointmentBooking.Business.Services
             var nextAvailableDate = FindNextAvailableDate(appointment.Date, config);
 
             appointment.Date = nextAvailableDate;
-            appointment.Token = GenerateToken($"token_{appointment.Date.Ticks}_{appointment.CustomerName}");
+            appointment.Token = GenerateToken(appointment.CustomerName);
             await _appointmentRepository.AddAppointment(appointment);
 
             return appointment;
