@@ -28,12 +28,13 @@ The Appointment Booking System is a .NET Web API designed to help agencies manag
    git clone https://github.com/yourgithubusername/appointmentbookingsystem.git
 
 ### API Endpoints
+```
 POST /api/appointments/book: Book a new appointment.
 GET /api/appointments/today: Retrieve appointments by date.
 GET /api/agencyconfiguration: Get current configuration settings.
 PUT /api/configuration/update-agency-configuration: Update configuration settings.
 POST /api/configuration/add-agency-configuration: Add new configuration settings.
-
+```
 
 ### Instructions:
 cd appointmentbookingsystem
